@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="templategridRowSelect.widget.templategridRowSelect" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>templategridRowSelect</name>
+    <description>The description of this widget.</description>
+
+    <icon />
+
+   <properties>
+        <property key="templategridName" type="string" required="true" defaultValue="">
+            <caption>Name of template grid</caption>
+            <category>Values</category>
+            <description>Name of the target templategrid (found in the common tab of the templategrid widget).</description>
+        </property>
+        <property key="mfToExecuteName" type="string" required="false" defaultValue="">
+            <caption>Name of microflow to be triggered</caption>
+            <category>Values</category>
+            <description>Name of microflow to be executed when templategrid row is selected. The name of microflow should begin with the module name e.g myfirstModule.microflow</description>
+        </property>        
+    </properties>
+</widget>
