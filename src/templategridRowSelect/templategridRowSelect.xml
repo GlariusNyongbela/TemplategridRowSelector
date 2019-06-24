@@ -7,14 +7,14 @@
 
    <properties>
         <property key="templategridName" type="string" required="true" defaultValue="">
-            <caption>Name of template grid</caption>
+            <caption>Templategrid name</caption>
             <category>Values</category>
             <description>Name of the target templategrid (found in the common tab of the templategrid widget).</description>
         </property>
         <property key="mfToExecuteName" type="string" required="false" defaultValue="">
-            <caption>Name of microflow to be triggered</caption>
+            <caption>Microflow name</caption>
             <category>Values</category>
-            <description>Name of microflow to be executed when templategrid row is selected. The name of microflow should begin with the module name e.g myfirstModule.microflow</description>
+            <description>Name of microflow to be executed when templategrid row is selected. The name of microflow should begin with the module name e.g myfirstModule.microflow. The microflow should take three input parameters: List of selected templategrid objects, templategrid object(NB: Not a list) and context object.</description>
         </property>        
     </properties>
 </widget>
