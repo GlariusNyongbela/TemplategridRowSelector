@@ -45,16 +45,21 @@ define([
         mfToExecuteName: "",
         templategridClass:"",
         templategridName:"",
+        lastSelectedObjectAssociationName:"",
 
         // Internal variables.
         _handles: null,
         _contextObj: null,
         _templategridElement:null, // ----> Glarius
+        _selectedObjects:null,
         _templategridElementBody:null, // ----> Glarius
+        _selectedItemGuids:null, // ----> Glarius
 
         constructor: function () {
             logger.debug(this.id + ".constructor");
             this._handles = [];
+            this._selectedItemGuids = [];
+            this._selectedObjects = [];
         },
 
         // dijit._WidgetBase.postCreate is called after constructing the widget. Implement to do extra setup work.
@@ -70,6 +75,7 @@ define([
             logger.debug(this.id + ".update");
 
             this._contextObj = obj;
+            this._resetSubscriptions();
             this._updateRendering(callback);
             this._getTemplategrid(); // ---> Glarius
         },
@@ -125,14 +131,20 @@ define([
 
         // Run the microflow declared in the the widget ui
         _execMicroflow: function (mfName, contextObject, cb) {
-            var selectedItemGuids = this.templategridWidget.getSelected();
-            logger.debug(this.id + "_execMicroflow" + "_" + mfName + "_" + contextObject + "_" + selectedItemGuids);
+            this._selectedItemGuids = this.templategridWidget.getSelected();
+            logger.debug(this.id + "_execMicroflow" + "_" + mfName + "_" + contextObject + "_" + this._selectedItemGuids);
+            if(this._selectedItemGuids.length > 0 & this.lastSelectedObjectAssociationName != ""){
+                console.log("last selected object is:" + this._selectedItemGuids[this._selectedItemGuids.length-1]);
+                this._contextObj.addReference(this.lastSelectedObjectAssociationName, this._selectedItemGuids[this._selectedItemGuids.length-1]);
+
+            }
             
             
-            mx.ui.action(mfName, {
+            if (mfName !="" & this._selectedItemGuids.length > 0){
+                mx.ui.action(mfName, {
                 params: {
                     applyto: "selection",
-                    guids: selectedItemGuids,
+                    guids: this._selectedItemGuids,
                 },
                 origin: mx.ui.mxform,
                 context:this.mxcontext,
@@ -145,6 +157,39 @@ define([
                     console.debug(error.description);
                 }
             }, this);  
+            }
+        },
+
+       
+         // Reset subscriptions.
+         _resetSubscriptions: function () {
+            logger.debug(this.id + "._resetSubscriptions");
+            // Release handles on previous object, if any.
+            this.unsubscribeAll();
+
+            // When a mendix object exists create subscribtions.
+            if (this._contextObj) {
+                this.subscribe({
+                    guid: this._contextObj.getGuid(),
+                    callback: lang.hitch(this, function (guid) {
+                        this._updateRendering();
+                    })
+                });
+
+                this.subscribe({
+                    guid: this._contextObj.getGuid(),
+                    attr: this.backgroundColor,
+                    callback: lang.hitch(this, function (guid, attr, attrValue) {
+                        this._updateRendering();
+                    })
+                });
+
+                this.subscribe({
+                    guid: this._contextObj.getGuid(),
+                    val: true,
+                    callback: lang.hitch(this, this._handleValidation)
+                });
+            }
         },
 
 

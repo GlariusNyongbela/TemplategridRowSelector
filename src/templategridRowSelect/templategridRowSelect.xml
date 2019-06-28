@@ -6,15 +6,21 @@
     <icon />
 
    <properties>
+
         <property key="templategridName" type="string" required="true" defaultValue="">
-            <caption>Templategrid name</caption>
+            <caption>Templategrid name *</caption>
             <category>Values</category>
             <description>Name of the target templategrid (found in the common tab of the templategrid widget).</description>
         </property>
-        <property key="mfToExecuteName" type="string" required="false" defaultValue="">
-            <caption>Microflow name</caption>
+        <property key="mfToExecuteName" type="string" required="true" defaultValue="">
+            <caption>Microflow name*</caption>
             <category>Values</category>
-            <description>Name of microflow to be executed when templategrid row is selected. The name of microflow should begin with the module name e.g myfirstModule.microflow. The microflow should take three input parameters: List of selected templategrid objects, templategrid object(NB: Not a list) and context object.</description>
-        </property>        
+            <description>Name of microflow to be executed when templategrid row is selected. The name should begin with the module name e.g myFirstModule.microflow. The microflow should take three input parameters: List of selected templategrid objects, templategrid object(NB: Not a list) and context object.</description>
+        </property>  
+        <property key="lastSelectedObjectAssociationName" type="string" required="false" defaultValue="">
+            <caption>Association name</caption>
+            <category>Values</category>
+            <description>Name of association which is used to identify the last selected item. The name should begin with the module name e.g. myFirstModule.associationName  </description>
+        </property>   
     </properties>
 </widget>
