@@ -22,5 +22,25 @@
             <category>Values</category>
             <description>Name of association which is used to identify the last selected item. The name should begin with the module name e.g. myFirstModule.associationName  </description>
         </property>   
+        <!--<property key="selectAllButton" type="string" required="false" defaultValue="">
+            <caption>Select all button css class </caption>
+            <category>Appearance</category>
+            <description>css class to style Select all button</description>
+        </property>
+        <property key="deselectAllButton" type="string" required="false" defaultValue="">
+            <caption>Deselect all button css class </caption>
+            <category>Appearance</category>
+            <description>css class to style Deselect all button</description>
+        </property>
+        <property key="selectAllButtonText" type="string" required="false" defaultValue="">
+            <caption>Select all button caption </caption>
+            <category>Appearance</category>
+            <description>Caption of the Select all button.</description>
+        </property>
+        <property key="deselectAllButtonText" type="string" required="false" defaultValue="">
+            <caption>Deselect all button caption </caption>
+            <category>Appearance</category>
+            <description>Caption of Deselect all button </description>
+        </property> -->
     </properties>
 </widget>
